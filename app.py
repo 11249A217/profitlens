@@ -4,7 +4,7 @@ Run: python app.py
 API runs on http://localhost:5000
 """
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import sqlite3
 import csv
@@ -81,6 +81,11 @@ def auto_categorize(desc: str) -> str:
     if any(k in d for k in ["product sale", "sales"]): return "Sales"
     if any(k in d for k in ["client", "consulting", "retainer", "payment"]): return "Services"
     return "Other"
+
+
+@app.route("/")
+def home():
+    return render_template("index.html")
 
 # ── Routes ─────────────────────────────────────────────────────────────────────
 
